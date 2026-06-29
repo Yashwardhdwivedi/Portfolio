@@ -424,39 +424,33 @@ footer{
 /* ══ MACBOOK BOOT SCREEN ══ */
 #boot{
   position:fixed;inset:0;z-index:99999;
-  background:#000;
+  background:#ffffff;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   gap:0;
   transition:opacity .8s ease, visibility .8s ease;
 }
+#boot.dark{background:#000;transition:background .8s ease}
 #boot.out{opacity:0;visibility:hidden;pointer-events:none}
-
-/* Apple logo */
-.boot-apple{
-  font-size:3.5rem;
-  opacity:0;
-  animation:bootApple .6s ease .1s forwards;
-  margin-bottom:2.5rem;
-  filter:drop-shadow(0 0 30px rgba(255,255,255,.15));
-}
-@keyframes bootApple{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
 
 /* Progress bar */
 .boot-bar-wrap{
   width:180px;height:3px;
-  background:rgba(255,255,255,.1);
+  background:rgba(0,0,0,.12);
   border-radius:2px;overflow:hidden;
   opacity:0;
   animation:bootFadeIn .4s ease .7s forwards;
   margin-bottom:3.5rem;
+  transition:background .8s ease;
 }
 .boot-bar-fill{
   height:100%;width:0;
-  background:linear-gradient(90deg,rgba(255,255,255,.6),rgba(255,255,255,.95));
+  background:linear-gradient(90deg,#555,#000);
   border-radius:2px;
-  transition:width .05s linear;
+  transition:width .05s linear, background .8s ease;
 }
+#boot.dark .boot-bar-wrap{background:rgba(255,255,255,.1)}
+#boot.dark .boot-bar-fill{background:linear-gradient(90deg,rgba(255,255,255,.6),rgba(255,255,255,.95))}
 @keyframes bootFadeIn{from{opacity:0}to{opacity:1}}
 
 /* Greeting word */
@@ -470,13 +464,14 @@ footer{
   font-size:clamp(2.2rem,6vw,3.8rem);
   font-weight:800;
   letter-spacing:-.03em;
-  color:#fff;
+  color:#000;
   opacity:0;
   transform:translateY(30px) scale(.95);
-  transition:opacity .3s ease, transform .3s ease;
+  transition:opacity .3s ease, transform .3s ease, color .8s ease;
   white-space:nowrap;
   text-align:center;
 }
+#boot.dark .boot-word{color:#fff}
 .boot-word.visible{opacity:1;transform:translateY(0) scale(1)}
 .boot-word.exit{opacity:0;transform:translateY(-30px) scale(1.02)}
 
@@ -486,29 +481,31 @@ footer{
   bottom:calc(50% - 120px);
   font-size:.72rem;font-weight:500;
   letter-spacing:.12em;text-transform:uppercase;
-  color:rgba(255,255,255,.3);
+  color:rgba(0,0,0,.35);
   opacity:0;
-  transition:opacity .3s ease;
+  transition:opacity .3s ease, color .8s ease;
 }
+#boot.dark .boot-lang{color:rgba(255,255,255,.3)}
 .boot-lang.visible{opacity:1}
 
 /* skip hint */
 .boot-skip{
   position:absolute;bottom:2rem;
-  font-size:.72rem;color:rgba(255,255,255,.25);
+  font-size:.72rem;color:rgba(0,0,0,.25);
   letter-spacing:.08em;
   animation:bootFadeIn .5s ease 1.5s forwards;
   opacity:0;cursor:pointer;
   transition:color .2s;
 }
-.boot-skip:hover{color:rgba(255,255,255,.5)}
+#boot.dark .boot-skip{color:rgba(255,255,255,.25)}
+.boot-skip:hover{color:rgba(0,0,0,.5)}
+#boot.dark .boot-skip:hover{color:rgba(255,255,255,.5)}
 </style>
 </head>
 <body>
 
 <!-- ══ MACBOOK BOOT SCREEN ══ -->
 <div id="boot">
-  <div class="boot-apple">􀣺</div>
   <div class="boot-greeting">
     <div class="boot-word" id="boot-word"></div>
   </div>
@@ -549,7 +546,7 @@ footer{
     <div style="display:flex;flex-direction:column;align-items:center">
       <div class="home-badge fade">
         <div class="pulse"></div>
-        Open to APM · PM roles - Bengaluru, Gurugram, Hyderabad, NCR
+        Open to APM · PM roles - Bengaluru, Gurugram, Hyderabad
       </div>
       <h1 class="home-name fade">Yash Wardhan<br>Dwivedi</h1>
       <p class="home-role fade"><span id="typed-role"></span></p>
@@ -785,31 +782,6 @@ footer{
       </div>
     </div>
 
-    <!-- P5: Wellness -->
-    <div class="glass-card proj-card fade">
-      <div class="proj-thumb">
-        <div class="proj-thumb-inner" style="background:linear-gradient(135deg,#0f1923,#1a2a3a)">💪</div>
-      </div>
-      <div>
-        <div class="proj-header">
-          <div class="proj-name">Wellness Intelligence Engine</div>
-          <div class="proj-links">
-            <a href="https://yashwardhan0601-a11y.github.io/Wellness-Intelligence-Engine/" target="_blank" class="proj-link-btn live">● Live</a>
-          </div>
-        </div>
-        <div class="exp-tags">
-          <span class="tag">Firebase</span><span class="tag">JavaScript</span><span class="tag">Tailwind CSS</span><span class="tag">REST APIs</span>
-        </div>
-        <div class="proj-desc">Admin platform for corporate wellness program management serving 1,500+ employees across 4 corporate clients. Onboarding time cut from 2 days to 2 hours. Participation rate up 38%. Admin NPS: 72.</div>
-        <div class="proj-stats">
-          <span class="proj-stat">1,500+ employees</span>
-          <span class="proj-stat">38% participation ↑</span>
-          <span class="proj-stat">NPS 72</span>
-          <span class="proj-stat">4 clients</span>
-        </div>
-      </div>
-    </div>
-
     <!-- P6: Niva CRM -->
     <div class="glass-card proj-card fade">
       <div class="proj-thumb">
@@ -854,15 +826,13 @@ footer{
         <span class="skill-pill">Acceptance Criteria</span>
         <span class="skill-pill">Feature Prioritization</span>
         <span class="skill-pill">Roadmapping</span>
-        <span class="skill-pill">Agile · Scrum</span>
-        <span class="skill-pill">Sprint Planning</span>
-        <span class="skill-pill">Backlog Grooming</span>
         <span class="skill-pill">Stakeholder Management</span>
         <span class="skill-pill">User Research</span>
-        <span class="skill-pill">Journey Mapping</span>
         <span class="skill-pill">UAT</span>
         <span class="skill-pill">Root Cause Analysis</span>
         <span class="skill-pill">OKRs &amp; KPIs</span>
+        <span class="skill-pill">SOP Design</span>
+        <span class="skill-pill">Process Improvement</span>
       </div>
       <div class="skills-cat-title">Technical</div>
       <div class="skills-cloud">
@@ -871,8 +841,7 @@ footer{
         <span class="skill-pill">Flask</span>
         <span class="skill-pill">Firebase</span>
         <span class="skill-pill">Supabase</span>
-        <span class="skill-pill">HTML · CSS · JS</span>
-        <span class="skill-pill">Tailwind CSS</span>
+        <span class="skill-pill">HTML · CSS · JS (Basic)</span>
         <span class="skill-pill">REST APIs</span>
         <span class="skill-pill">Postman</span>
         <span class="skill-pill">Git · GitHub</span>
@@ -1062,11 +1031,11 @@ document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 // ══ MACBOOK BOOT ANIMATION ══
 (function(){
   const greetings = [
-    { word: 'Hello',      lang: 'English'  },
-    { word: 'नमस्ते',     lang: 'Hindi'    },
-    { word: 'こんにちは',  lang: 'Japanese' },
-    { word: 'Hola',       lang: 'Spanish'  },
-    { word: 'Bonjour',    lang: 'French'   },
+    { word: 'Welcome',    lang: 'English'  },
+    { word: 'स्वागत है',  lang: 'Hindi'    },
+    { word: 'ようこそ',    lang: 'Japanese' },
+    { word: 'Bienvenido', lang: 'Spanish'  },
+    { word: 'Bienvenue',  lang: 'French'   },
   ];
 
   const boot   = document.getElementById('boot');
@@ -1109,6 +1078,8 @@ document.querySelectorAll('.fade').forEach(el => obs.observe(el));
 
   setTimeout(() => {
     showGreeting(0);
+    // flip bg from white to dark after first word appears
+    setTimeout(() => { boot.classList.add('dark'); }, 400);
 
     // cycle greetings every 1.2s - just right
     const greetInterval = setInterval(() => {
